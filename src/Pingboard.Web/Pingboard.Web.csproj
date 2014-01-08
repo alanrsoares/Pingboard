@@ -81,6 +81,11 @@
     <Content Include="content\bootstrap-theme.min.css" />
     <Content Include="content\bootstrap.css" />
     <Content Include="content\bootstrap.min.css" />
+    <Content Include="content\images\hrm-icon.png" />
+    <Content Include="content\images\status-down.png" />
+    <Content Include="content\images\status-paused.png" />
+    <Content Include="content\images\status-unknown.png" />
+    <Content Include="content\images\status-up.png" />
     <Content Include="content\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

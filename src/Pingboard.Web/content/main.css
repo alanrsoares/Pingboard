@@ -2,6 +2,11 @@
     min-height: 2000px;
 }
 
+.navbar-brand {
+    padding-left: 40px;
+    background: url("/content/images/hrm-icon.png") no-repeat top 9px left 20px;
+}
+
 .navbar-static-top {
     margin-bottom: 19px;
 }
