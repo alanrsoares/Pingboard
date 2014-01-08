@@ -87,6 +87,7 @@
     <Content Include="content\images\status-unknown.png" />
     <Content Include="content\images\status-up.png" />
     <Content Include="content\main.css" />
+    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
