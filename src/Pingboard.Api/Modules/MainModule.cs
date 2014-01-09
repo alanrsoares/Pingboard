@@ -1,8 +1,8 @@
-﻿namespace Pingboard.Web.Modules
-{
-    using Nancy;
-    using Bundling;
+﻿using Nancy;
+using Pingboard.Model.Bundling;
 
+namespace Pingboard.Api.Modules
+{
     public class MainModule : NancyModule
     {
         public MainModule()

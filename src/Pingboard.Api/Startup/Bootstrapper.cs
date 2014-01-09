@@ -2,9 +2,9 @@
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.TinyIoc;
-using Pingboard.Web.Bundling;
+using Pingboard.Model.Bundling;
 
-namespace Pingboard.Web.Startup
+namespace Pingboard.Api.Startup
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {

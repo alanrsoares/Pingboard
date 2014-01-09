@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AF686D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pingboard.Api", "Pingboard.Api\Pingboard.Api.csproj", "{063B1C39-CACE-4D72-948F-27020C0FC67F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pingboard.Model", "Pingboard.Model\Pingboard.Model.csproj", "{CA82B3F7-C9F2-4ECA-B798-0526AC41E87E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +26,14 @@ Global
 		{887A8565-4A10-44C8-82EF-F2F2D1D2BFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{887A8565-4A10-44C8-82EF-F2F2D1D2BFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{887A8565-4A10-44C8-82EF-F2F2D1D2BFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{063B1C39-CACE-4D72-948F-27020C0FC67F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{063B1C39-CACE-4D72-948F-27020C0FC67F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{063B1C39-CACE-4D72-948F-27020C0FC67F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{063B1C39-CACE-4D72-948F-27020C0FC67F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA82B3F7-C9F2-4ECA-B798-0526AC41E87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA82B3F7-C9F2-4ECA-B798-0526AC41E87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA82B3F7-C9F2-4ECA-B798-0526AC41E87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA82B3F7-C9F2-4ECA-B798-0526AC41E87E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

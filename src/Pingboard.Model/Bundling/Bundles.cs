@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Pingboard.Web.Bundling
+namespace Pingboard.Model.Bundling
 {
     public class SquishItFile
     {

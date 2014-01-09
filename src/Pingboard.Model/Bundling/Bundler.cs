@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Nancy;
 using SquishIt.Framework;
 using SquishIt.Framework.CSS;
 using SquishIt.Framework.JavaScript;
 
-namespace Pingboard.Web.Bundling
+namespace Pingboard.Model.Bundling
 {
     public class Bundler
     {
@@ -98,6 +100,36 @@ namespace Pingboard.Web.Bundling
             // JS
             BuildJavaScriptBundle(Bundles.CommonJavascript).ForceRelease().AsCached("common-js", "~/assets/js/common-js");
             BuildJavaScriptBundle(Bundles.CommonJavascript).ForceDebug().AsNamed("common-js-debug", "");
+        }
+
+        public static dynamic CreateJavascriptResponse(IResponseFormatter response, dynamic parameters)
+        {
+            return IResponseFormatterExtensions.CreateJavascriptResponse(response, parameters);
+        }
+
+        public static dynamic CreateCssResponse(IResponseFormatter response, dynamic parameters)
+        {
+            return IResponseFormatterExtensions.CreateCssResponse(response, parameters);
+        }
+    }
+
+    public static class IResponseFormatterExtensions
+    {
+        public static Response CreateCssResponse(this IResponseFormatter response, dynamic parameters)
+        {
+            return response.CreateResponse(Bundle.Css().RenderCached((string)parameters.name), Configuration.Instance.CssMimeType);
+        }
+
+        public static Response CreateJavascriptResponse(this IResponseFormatter response, dynamic parameters)
+        {
+            return response.CreateResponse(Bundle.JavaScript().RenderCached((string)parameters.name), Configuration.Instance.JavascriptMimeType);
+        }
+
+        public static Response CreateResponse(this IResponseFormatter response, string content, string contentType)
+        {
+            return response
+                .FromStream(() => new MemoryStream(Encoding.UTF8.GetBytes(content)), contentType)
+                .WithHeader("Cache-Control", "max-age=45");
         }
     }
 }
