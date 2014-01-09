@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Pingboard.Model.Bundling;
 
-namespace Pingboard.Api.Modules
+namespace Pingboard.Api.Modules.Common
 {
     public class MainModule : NancyModule
     {
@@ -11,7 +11,7 @@ namespace Pingboard.Api.Modules
             Get["/"] = _ => View["index", viewModel];
         }
 
-        private object AssembleViewModel()
+        private static object AssembleViewModel()
         {
             return new
             {

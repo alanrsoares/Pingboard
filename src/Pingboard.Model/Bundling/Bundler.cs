@@ -9,7 +9,7 @@ using SquishIt.Framework.JavaScript;
 
 namespace Pingboard.Model.Bundling
 {
-    public class Bundler
+    public static class Bundler
     {
         public static string AssembleScriptBundle(string bundle)
         {
@@ -25,19 +25,19 @@ namespace Pingboard.Model.Bundling
                 : Bundle.Css().RenderCachedAssetTag(string.Format("{0}-css", bundle));
         }
 
-        public static string AssembleScriptBundles(IEnumerable<string> bundles)
+        public static string AssembleScriptBundles(params string[] bundles)
         {
             return string.Join("\r\n", bundles.Select(AssembleScriptBundle));
         }
 
-        public static string AssembleStyleBundles(IEnumerable<string> bundles)
+        public static string AssembleStyleBundles(params string[] bundles)
         {
             return string.Join("\r\n", bundles.Select(AssembleStyleBundle));
         }
 
-        protected static string BasePathForTesting = "";
+        private static string _basePathForTesting = "";
 
-        protected static JavaScriptBundle BuildJavaScriptBundle(IEnumerable<SquishItFile> files)
+        private static JavaScriptBundle BuildJavaScriptBundle(IEnumerable<SquishItFile> files)
         {
             var bundle = Bundle.JavaScript();
 
@@ -45,9 +45,9 @@ namespace Pingboard.Model.Bundling
             {
                 var url = item.Url;
 
-                if (!string.IsNullOrWhiteSpace(BasePathForTesting))
+                if (!string.IsNullOrWhiteSpace(_basePathForTesting))
                 {
-                    url = BasePathForTesting + item.Url.Replace("~", "");
+                    url = _basePathForTesting + item.Url.Replace("~", "");
                 }
 
                 if (item.Minify)
@@ -63,7 +63,7 @@ namespace Pingboard.Model.Bundling
             return bundle;
         }
 
-        protected static CSSBundle BuildCssBundle(IEnumerable<SquishItFile> files)
+        private static CSSBundle BuildCssBundle(IEnumerable<SquishItFile> files)
         {
             var bundle = Bundle.Css();
 
@@ -71,9 +71,9 @@ namespace Pingboard.Model.Bundling
             {
                 var url = item.Url;
 
-                if (!string.IsNullOrWhiteSpace(BasePathForTesting))
+                if (!string.IsNullOrWhiteSpace(_basePathForTesting))
                 {
-                    url = BasePathForTesting + item.Url.Replace("~", "");
+                    url = _basePathForTesting + item.Url.Replace("~", "");
                 }
 
                 if (item.Minify)
@@ -91,7 +91,7 @@ namespace Pingboard.Model.Bundling
 
         public static void Setup(string basePathForTesting = "")
         {
-            BasePathForTesting = basePathForTesting;
+            _basePathForTesting = basePathForTesting;
 
             // CSS
             BuildCssBundle(Bundles.CommonCss).ForceRelease().AsCached("common-css", "~/assets/css/common-css");
@@ -125,7 +125,7 @@ namespace Pingboard.Model.Bundling
             return response.CreateResponse(Bundle.JavaScript().RenderCached((string)parameters.name), Configuration.Instance.JavascriptMimeType);
         }
 
-        public static Response CreateResponse(this IResponseFormatter response, string content, string contentType)
+        private static Response CreateResponse(this IResponseFormatter response, string content, string contentType)
         {
             return response
                 .FromStream(() => new MemoryStream(Encoding.UTF8.GetBytes(content)), contentType)

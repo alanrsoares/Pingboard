@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Pingboard.Model.Bundling;
 
-namespace Pingboard.Api.Modules
+namespace Pingboard.Api.Modules.Common
 {
     public class AssetModule : NancyModule
     {
@@ -9,7 +9,6 @@ namespace Pingboard.Api.Modules
             : base("/assets")
         {
             Get["/js/{name}"] = parameters => Bundler.CreateJavascriptResponse(Response, parameters);
-
             Get["/css/{name}"] = parameters => Bundler.CreateCssResponse(Response, parameters);
         }
     }

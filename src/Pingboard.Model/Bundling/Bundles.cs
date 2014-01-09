@@ -18,13 +18,20 @@ namespace Pingboard.Model.Bundling
 
     public static class Bundles
     {
-        public static IEnumerable<SquishItFile> BundleFiles(bool minify, params string[] fileUrls)
+        private static IEnumerable<SquishItFile> BundleFiles(bool minify, params string[] fileUrls)
         {
             return fileUrls.Select(url => new SquishItFile(url, minify));
         }
 
-        public static IEnumerable<SquishItFile> CommonJavascript = BundleFiles(true, "~/scripts/jquery-2.0.3.js", "~/scripts/bootstrap.js", "~/scripts/angular.js", "~/app/app.js");
+        public static readonly IEnumerable<SquishItFile> CommonJavascript = BundleFiles(true, 
+            "~/scripts/jquery-2.0.3.js", 
+            "~/scripts/bootstrap.js", 
+            "~/scripts/angular.js", 
+            "~/scripts/angular-route.js", 
+            "~/scripts/angular-resource.js", 
+            "~/app/controllers/controllers.js", 
+            "~/app/app.js");
 
-        public static IEnumerable<SquishItFile> CommonCss = BundleFiles(true, "~/content/bootstrap.css", "~/content/bootstrap-theme.css", "~/content/main.css");
+        public static readonly IEnumerable<SquishItFile> CommonCss = BundleFiles(true, "~/content/bootstrap.css", "~/content/bootstrap-theme.css", "~/content/main.css");
     }
 }
