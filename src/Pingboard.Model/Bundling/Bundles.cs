@@ -16,22 +16,52 @@ namespace Pingboard.Model.Bundling
         }
     }
 
-    public static class Bundles
+    public class SquishItFileCollection : List<SquishItFile>, ISquishItFileCollection
     {
-        private static IEnumerable<SquishItFile> BundleFiles(bool minify, params string[] fileUrls)
+        public ISquishItFileCollection AddFiles(bool minify, string basePath, string extension, params string[] fileUrls)
         {
-            return fileUrls.Select(url => new SquishItFile(url, minify));
+            AddRange(Bundles.BundleFiles(minify, basePath, extension, fileUrls));
+            return this;
         }
 
-        public static readonly IEnumerable<SquishItFile> CommonJavascript = BundleFiles(true, 
-            "~/scripts/jquery-2.0.3.js", 
-            "~/scripts/bootstrap.js", 
-            "~/scripts/angular.js", 
-            "~/scripts/angular-route.js", 
-            "~/scripts/angular-resource.js", 
-            "~/app/controllers/controllers.js", 
-            "~/app/app.js");
+        public IEnumerable<SquishItFile> ToEnumerable()
+        {
+            return this.ToList();
+        }
+    }
 
-        public static readonly IEnumerable<SquishItFile> CommonCss = BundleFiles(true, "~/content/bootstrap.css", "~/content/bootstrap-theme.css", "~/content/main.css");
+    public interface ISquishItFileCollection
+    {
+        ISquishItFileCollection AddFiles(bool minify, string basePath, string extension, params string[] fileUrls);
+        IEnumerable<SquishItFile> ToEnumerable();
+    }
+
+    public static class Bundles
+    {
+        private const string AppRoot = "~/app/";
+        private const string ComponentsRoot = AppRoot + "bower_components/";
+
+        public static IEnumerable<SquishItFile> BundleFiles(bool minify, string basePath, string extension, params string[] fileUrls)
+        {
+            return fileUrls.Select(url => new SquishItFile(string.Concat(basePath, url, extension), minify));
+        }
+
+        public static readonly IEnumerable<SquishItFile> CommonScripts = new SquishItFileCollection()
+                .AddFiles(true, ComponentsRoot, ".js",
+                    "jquery/jquery",
+                    "bootstrap/dist/js/bootstrap",
+                    "angular/angular",
+                    "angular-route/angular-route")
+                .AddFiles(true, AppRoot, ".js",
+                    "js/controllers/controllers",
+                    "js/app")
+                .ToEnumerable();
+
+        public static readonly IEnumerable<SquishItFile> CommonStyles = new SquishItFileCollection()
+                .AddFiles(true, ComponentsRoot, ".css",
+                    "bootstrap/dist/css/bootstrap")
+                .AddFiles(true, AppRoot, ".css",
+                    "css/main")
+                .ToEnumerable();
     }
 }

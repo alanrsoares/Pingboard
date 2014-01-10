@@ -94,12 +94,12 @@ namespace Pingboard.Model.Bundling
             _basePathForTesting = basePathForTesting;
 
             // CSS
-            BuildCssBundle(Bundles.CommonCss).ForceRelease().AsCached("common-css", "~/assets/css/common-css");
-            BuildCssBundle(Bundles.CommonCss).ForceDebug().AsNamed("common-css-debug", "");
+            //BuildCssBundle(Bundles.CommonStyles).ForceRelease().AsCached("common-css", "~/assets/css/common-css");
+            BuildCssBundle(Bundles.CommonStyles).ForceDebug().AsNamed("common-css-debug", "");
 
             // JS
-            BuildJavaScriptBundle(Bundles.CommonJavascript).ForceRelease().AsCached("common-js", "~/assets/js/common-js");
-            BuildJavaScriptBundle(Bundles.CommonJavascript).ForceDebug().AsNamed("common-js-debug", "");
+            //BuildJavaScriptBundle(Bundles.CommonScripts).ForceRelease().AsCached("common-js", "~/assets/js/common-js");
+            BuildJavaScriptBundle(Bundles.CommonScripts).ForceDebug().AsNamed("common-js-debug", "");
         }
 
         public static dynamic CreateJavascriptResponse(IResponseFormatter response, dynamic parameters)
