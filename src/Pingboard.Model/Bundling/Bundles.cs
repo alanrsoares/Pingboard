@@ -18,22 +18,47 @@ namespace Pingboard.Model.Bundling
 
     public class SquishItFileCollection : List<SquishItFile>, ISquishItFileCollection
     {
-        public ISquishItFileCollection AddFiles(bool minify, string basePath, string extension, params string[] fileUrls)
+        private string Extension { get; set; }
+
+        private string BasePath { get; set; }
+
+        private bool Minify { get; set; }
+
+        public ISquishItFileCollection WithBasePath(string basePath)
         {
-            AddRange(Bundles.BundleFiles(minify, basePath, extension, fileUrls));
+            BasePath = basePath;
             return this;
         }
 
-        public IEnumerable<SquishItFile> ToEnumerable()
+        public ISquishItFileCollection WithExtension(string extension)
         {
-            return this.ToList();
+            Extension = extension;
+            return this;
+        }
+
+        public ISquishItFileCollection WithMinification(bool minifyFiles)
+        {
+            Minify = minifyFiles;
+            return this;
+        }
+
+        public ISquishItFileCollection WithFiles(params string[] filePaths)
+        {
+            return WithFiles(Minify, BasePath, Extension, filePaths);
+        }
+
+        private ISquishItFileCollection WithFiles(bool minify, string basePath, string extension, params string[] filePaths)
+        {
+            AddRange(Bundles.BundleFiles(minify, basePath, extension, filePaths));
+            return this;
         }
     }
 
-    public interface ISquishItFileCollection
+    public interface ISquishItFileCollection : IEnumerable<SquishItFile>
     {
-        ISquishItFileCollection AddFiles(bool minify, string basePath, string extension, params string[] fileUrls);
-        IEnumerable<SquishItFile> ToEnumerable();
+        ISquishItFileCollection WithBasePath(string basePath);
+        ISquishItFileCollection WithMinification(bool minifyFiles);
+        ISquishItFileCollection WithFiles(params string[] filePaths);
     }
 
     public static class Bundles
@@ -47,21 +72,26 @@ namespace Pingboard.Model.Bundling
         }
 
         public static readonly IEnumerable<SquishItFile> CommonScripts = new SquishItFileCollection()
-                .AddFiles(true, ComponentsRoot, ".js",
+                .WithExtension(".js")
+                .WithMinification(true)
+                .WithBasePath(ComponentsRoot)
+                .WithFiles(
                     "jquery/jquery",
                     "bootstrap/dist/js/bootstrap",
                     "angular/angular",
                     "angular-route/angular-route")
-                .AddFiles(true, AppRoot, ".js",
+                .WithBasePath(AppRoot)
+                .WithFiles(
                     "js/controllers/controllers",
-                    "js/app")
-                .ToEnumerable();
+                    "js/app");
 
         public static readonly IEnumerable<SquishItFile> CommonStyles = new SquishItFileCollection()
-                .AddFiles(true, ComponentsRoot, ".css",
+                .WithExtension(".css")
+                .WithMinification(true)
+                .WithBasePath(ComponentsRoot)
+                .WithFiles(
                     "bootstrap/dist/css/bootstrap")
-                .AddFiles(true, AppRoot, ".css",
-                    "css/main")
-                .ToEnumerable();
+                .WithBasePath(AppRoot)
+                .WithFiles("css/main", "css/main", "css/main", "css/main");
     }
 }

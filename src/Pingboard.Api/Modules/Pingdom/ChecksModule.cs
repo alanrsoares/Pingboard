@@ -12,6 +12,12 @@ namespace Pingboard.Api.Modules.Pingdom
                 var response = await PingdomClient.Pingdom.Client.Checks.GetChecksList();
                 return Response.AsJson(response);
             };
+
+            Get["/{id}", true] = async (_, ctx) =>
+            {
+                var response = await PingdomClient.Pingdom.Client.Checks.GetDetailedCheckInformation((int)_.id);
+                return Response.AsJson(response);
+            };
         }
     }
 }

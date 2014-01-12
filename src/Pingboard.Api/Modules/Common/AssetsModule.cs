@@ -8,8 +8,8 @@ namespace Pingboard.Api.Modules.Common
         public AssetModule()
             : base("/assets")
         {
-            Get["/js/{name}"] = parameters => Bundler.CreateJavascriptResponse(Response, parameters);
-            Get["/css/{name}"] = parameters => Bundler.CreateCssResponse(Response, parameters);
+            Get["/js/{name}"] = _ => Bundler.CreateJavascriptResponse(Response, _);
+            Get["/css/{name}"] = _ => Bundler.CreateCssResponse(Response, _);
         }
     }
 }

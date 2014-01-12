@@ -19,7 +19,6 @@ namespace Pingboard.Api.Startup
         protected override void ConfigureConventions(NancyConventions conventions)
         {
             base.ConfigureConventions(conventions);
-            conventions.StaticContentsConventions.AddDirectory("scripts");
             conventions.StaticContentsConventions.AddDirectory("app");
         }
     }
