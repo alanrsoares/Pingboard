@@ -104,16 +104,16 @@ namespace Pingboard.Model.Bundling
 
         public static dynamic CreateJavascriptResponse(IResponseFormatter response, dynamic parameters)
         {
-            return IResponseFormatterExtensions.CreateJavascriptResponse(response, parameters);
+            return ResponseFormatterExtensions.CreateJavascriptResponse(response, parameters);
         }
 
         public static dynamic CreateCssResponse(IResponseFormatter response, dynamic parameters)
         {
-            return IResponseFormatterExtensions.CreateCssResponse(response, parameters);
+            return ResponseFormatterExtensions.CreateCssResponse(response, parameters);
         }
     }
 
-    public static class IResponseFormatterExtensions
+    public static class ResponseFormatterExtensions
     {
         public static Response CreateCssResponse(this IResponseFormatter response, dynamic parameters)
         {
