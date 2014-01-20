@@ -24,6 +24,11 @@ namespace Pingboard.Model.Bundling
 
         private bool Minify { get; set; }
 
+        public static SquishItFileCollection CreateNew()
+        {
+            return new SquishItFileCollection();
+        }
+
         public ISquishItFileCollection WithBasePath(string basePath)
         {
             BasePath = basePath;
@@ -71,7 +76,24 @@ namespace Pingboard.Model.Bundling
             return fileUrls.Select(url => new SquishItFile(string.Concat(basePath, url, extension), minify));
         }
 
-        public static readonly IEnumerable<SquishItFile> CommonScripts = new SquishItFileCollection()
+        private static IEnumerable<SquishItFile> _commonScripts;
+
+        public static IEnumerable<SquishItFile> CommonScripts
+        {
+            get { return _commonScripts ?? (_commonScripts = LoadCommonScripts()); }
+        }
+
+        private static IEnumerable<SquishItFile> _commonStyles;
+
+        public static IEnumerable<SquishItFile> CommonStyles
+        {
+            get { return _commonStyles ?? (_commonStyles = LoadCommonStyles()); }
+        }
+
+        private static IEnumerable<SquishItFile> LoadCommonScripts()
+        {
+            return SquishItFileCollection
+                .CreateNew()
                 .WithExtension(".js")
                 .WithMinification(true)
                 .WithBasePath(ComponentsRoot)
@@ -84,14 +106,19 @@ namespace Pingboard.Model.Bundling
                 .WithFiles(
                     "js/controllers/controllers",
                     "js/app");
+        }
 
-        public static readonly IEnumerable<SquishItFile> CommonStyles = new SquishItFileCollection()
+        private static IEnumerable<SquishItFile> LoadCommonStyles()
+        {
+            return SquishItFileCollection
+                .CreateNew()
                 .WithExtension(".css")
                 .WithMinification(true)
                 .WithBasePath(ComponentsRoot)
                 .WithFiles(
                     "bootstrap/dist/css/bootstrap")
                 .WithBasePath(AppRoot)
-                .WithFiles("css/main", "css/main", "css/main", "css/main");
+                .WithFiles("css/main");
+        }
     }
 }

@@ -94,7 +94,7 @@ namespace Pingboard.Model.Bundling
             _basePathForTesting = basePathForTesting;
 
             // CSS
-            //BuildCssBundle(Bundles.CommonStyles).ForceRelease().AsCached("common-styles", "~/assets/css/common-styles");
+            BuildCssBundle(Bundles.CommonStyles).ForceRelease().AsCached("common-styles", "~/assets/css/common-styles");
             BuildCssBundle(Bundles.CommonStyles).ForceDebug().AsNamed("common-styles-debug", "");
 
             // JS
