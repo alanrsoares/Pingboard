@@ -283,8 +283,6 @@
     <Content Include="app\bower_components\moment\bower.json" />
     <Content Include="app\bower_components\moment\LICENSE" />
     <Content Include="app\bower_components\moment\readme.md" />
-    <None Include="Properties\PublishProfiles\pingboard %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\pingboard.pubxml" />
     <Content Include="views\main\index.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -295,6 +293,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\pingboard - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\pingboard - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

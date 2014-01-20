@@ -189,3 +189,7 @@ node_modules/
 
 # nuget packages
 src/packages/
+
+# Azure publication profiles
+PublishProfiles/
+*.pubxml
