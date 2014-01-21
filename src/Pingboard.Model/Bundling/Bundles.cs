@@ -75,7 +75,7 @@ namespace Pingboard.Model.Bundling
     public static class Bundles
     {
         private const string AppRoot = "~/app/";
-        private const string ComponentsRoot = AppRoot + "bower_components/";
+        private const string ComponentsRoot = AppRoot + "components/";
 
         public static IEnumerable<SquishItFile> BundleFiles(bool minify, string basePath, string extension, params string[] fileUrls)
         {
