@@ -1,8 +1,4 @@
-﻿body {
-    min-height: 2000px;
-}
-
-.navbar-brand {
+﻿.navbar-brand {
     padding-left: 40px;
     background: url("/app/img/hrm-icon.png") no-repeat top 9px left 20px;
 }

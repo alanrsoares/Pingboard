@@ -52,6 +52,11 @@ namespace Pingboard.Model.Bundling
             return WithFiles(Minify, BasePath, Extension, filePaths);
         }
 
+        public ISquishItFileCollection WithFilesInDirectory(string directory, params string[] filePaths)
+        {
+            return WithFiles(Minify, BasePath + directory, Extension, filePaths);
+        }
+
         private ISquishItFileCollection WithFiles(bool minify, string basePath, string extension, params string[] filePaths)
         {
             AddRange(Bundles.BundleFiles(minify, basePath, extension, filePaths));
@@ -64,6 +69,7 @@ namespace Pingboard.Model.Bundling
         ISquishItFileCollection WithBasePath(string basePath);
         ISquishItFileCollection WithMinification(bool minifyFiles);
         ISquishItFileCollection WithFiles(params string[] filePaths);
+        ISquishItFileCollection WithFilesInDirectory(string directory, params string[] filePaths);
     }
 
     public static class Bundles
@@ -115,8 +121,9 @@ namespace Pingboard.Model.Bundling
                 .WithExtension(".css")
                 .WithMinification(true)
                 .WithBasePath(ComponentsRoot)
-                .WithFiles(
-                    "bootstrap/dist/css/bootstrap")
+                .WithFilesInDirectory("bootstrap/dist/css/",
+                    "bootstrap",
+                    "bootstrap-theme")
                 .WithBasePath(AppRoot)
                 .WithFiles("css/main");
         }

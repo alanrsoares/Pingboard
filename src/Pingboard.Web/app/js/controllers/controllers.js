@@ -6,7 +6,7 @@
 
     pingboardControllers.controller('MainCtrl', [
         '$scope', function ($scope) {
-
+            $scope.greeting = "hello, nancy!";
         }
     ]);
 })();
