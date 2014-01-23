@@ -14,7 +14,11 @@
     "angular-route": "~1.2.7",
     "jquery": "~2.0.3",
     "bootstrap": "~3.0.3",
-    "underscore": "~1.5.2",
-    "moment": "~2.5.0"
+    "moment": "~2.5.0",
+    "angular-resource": "~1.2.9",
+    "lazy.js": "~0.3.2"
+  },
+  "resolutions": {
+    "angular": "1.2.10-build.2178+sha.40dc806"
   }
 }

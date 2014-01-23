@@ -107,9 +107,12 @@ namespace Pingboard.Model.Bundling
                     "jquery/jquery",
                     "bootstrap/dist/js/bootstrap",
                     "angular/angular",
-                    "angular-route/angular-route")
+                    "lazy.js/lazy",
+                    "angular-route/angular-route",
+                    "angular-resource/angular-resource")
                 .WithBasePath(AppRoot)
                 .WithFiles(
+                    "js/services/services",
                     "js/controllers/controllers",
                     "js/app");
         }

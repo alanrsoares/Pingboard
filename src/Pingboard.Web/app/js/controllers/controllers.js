@@ -1,13 +1,21 @@
 ﻿(function () {
     'use strict';
 
-    var controllersDependencies = [];
-    var pingboardControllers = angular.module('pingboard.controllers', controllersDependencies);
+    var dependencies = ['pingboard.services'];
 
-    pingboardControllers.controller('MainCtrl', [
+    var controllers = angular.module('pingboard.controllers', dependencies);
+
+    controllers
+        .controller('MainCtrl', [
         '$scope', function ($scope) {
             $scope.greeting = "hello, nancy!";
         }
-    ]);
+        ])
+        .controller('ChecksCtrl', ['$scope', 'checks', function ($scope, checks) {
+            $scope.checks = $scope.checks || [];
+            checks.get(function (data) {
+                $scope.checks = data.Checks;
+            });
+        }]);
 })();
 
