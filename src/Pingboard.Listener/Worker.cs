@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using PingdomClient;
 
@@ -6,15 +7,36 @@ namespace Pingboard.Listener
 {
     public static class Worker
     {
-        private static bool _isCancelled;
+        private static bool _isRunning;
 
-        private static async void SetInterval(TimeSpan interval, Action actionCallback)
+        private static async Task RunInterval(TimeSpan interval, Action actionCallback)
         {
-            while (_isCancelled)
+            var failMultiplier = 0;
+
+            const int failIncrement = 10;
+
+            while (_isRunning)
+            {
+                failMultiplier = await TryInvokeCallback(interval, actionCallback, failIncrement, failMultiplier);
+            }
+        }
+
+        private static async Task<int> TryInvokeCallback(TimeSpan interval, Action actionCallback, int failIncrement, int failMultiplier)
+        {
+            try
             {
                 actionCallback.Invoke();
-                await Task.Delay(interval);
+                failMultiplier = 0;
             }
+            catch (Exception)
+            {
+                failMultiplier++;
+                Thread.Sleep(TimeSpan.FromSeconds(failMultiplier * failIncrement));
+            }
+
+            await Task.Delay(interval);
+
+            return failMultiplier;
         }
 
         private static async void ListenToChecksChanges()
@@ -24,8 +46,8 @@ namespace Pingboard.Listener
 
         public static void Start()
         {
-            _isCancelled = false;
-            Task.Factory.StartNew(() => SetInterval(TimeSpan.FromSeconds(30), ListenToChecksChanges), TaskCreationOptions.LongRunning);
+            _isRunning = true;
+            Task.Factory.StartNew(() => RunInterval(TimeSpan.FromSeconds(30), ListenToChecksChanges), TaskCreationOptions.LongRunning);
         }
     }
 }

@@ -9,7 +9,8 @@
         public ChecksModule()
             : base("/api/checks")
         {
-            Get["/"] = _ => Response.AsJson(Listener.Context.Checks).AsCacheable(DateTime.Now.AddSeconds(10));
+            Get["/"] = _ => Response.AsJson(Listener.Context.Checks)
+                                    .AsCacheable(DateTime.Now.AddSeconds(10));
 
             Get["/{id}", true] = async (_, ctx) =>
             {
