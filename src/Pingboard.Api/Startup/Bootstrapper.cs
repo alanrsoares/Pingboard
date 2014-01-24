@@ -4,6 +4,7 @@ using Nancy.Conventions;
 using Nancy.Routing;
 using Nancy.TinyIoc;
 using Nancy.LightningCache.Extensions;
+using Pingboard.Listener;
 using Pingboard.Model.Bundling;
 
 namespace Pingboard.Api.Startup
@@ -16,6 +17,7 @@ namespace Pingboard.Api.Startup
 
             // Setup bundles
             Bundler.Setup();
+            Worker.Start();
             this.EnableLightningCache(container.Resolve<IRouteResolver>(), ApplicationPipelines, new[] { "id", "query", "take", "skip" });
         }
 
